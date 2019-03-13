@@ -1,0 +1,13 @@
+body {
+    padding-top: 50px;
+}
+
+.sh{
+  padding-left: 11px;
+  font-weight: bold;
+  border-left: 6px solid #ff9933;
+}
+
+p {
+  text-align:center;
+}
