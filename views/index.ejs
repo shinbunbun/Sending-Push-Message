@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Sending Push Message</title>
+        <link rel="stylesheet" href="/public/third_party/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="/public/stylesheets/index.css" />
+    </head>
+
+    <body>
+        <div class="container">
+            <h1>Sending Push Messages</h1>
+            <!---- <p class="lead">送りたいユーザーのuserIdが入ったCSVファイルをアップロードすると、そのユーザーにPUSHMessageを送信します</p> -->
+            <br>
+            <div class="form-group">
+                <div class="sh"><label for="accessToken">AccessToken:</label></div>
+                <br>
+                <input type="text" id="accessToken" class="form-control">
+                <br>
+            </div>
+
+            <div class="sh"><label for="userId">userId:</label></div>
+            <br>
+            <form name="form">
+                <div class="input-group">
+                    <label class="input-group-btn">
+                        <span class="btn btn-primary">
+                            Choose File<input type="file" id="file" style="display:none">
+                        </span>
+                    </label>
+                    <input type="text" class="form-control" readonly="">
+                </div>
+                <br>
+                <!---- <a href="../public/images/csv.png" target="_blank" style="font-size: 15pt;">example</a> -->
+                <div class="form-group">
+                    <textarea readonly id="output" class="form-control" rows="20"></textarea>
+                </div>
+                <br>
+            </form>
+
+            <div class="form-group">
+                <div class="sh"><label for="Messages">Messages:</label></div>
+                <br>
+                <textarea id="Messages" class="form-control" rows="10"></textarea>
+                <br>
+            </div>
+
+            <button class="btn btn-primary" name="submit" onclick="submit();">submit</button>
+            <br><br><br>
+            <div class="form-group">
+                <div class="sh"><label for="Result">Result:</label></div>
+                <br>
+                <textarea readonly id="result" class="form-control" rows="10"></textarea>
+            </div>
+        </div>
+        <p>Copyright (c) 2019 <a href="https://twitter.com/shinbunbun_">Yuto Takamune</p>
+
+        <script type="text/javascript" src="/public/third_party/jquery/dist/jquery.js"></script>
+        <script type="text/javascript" src="/public/third_party/bootstrap/dist/js/bootstrap.js"></script>
+        <script type="text/javascript" src="/public/javascripts/index.js"></script>
+    </body>
+
+</html>
