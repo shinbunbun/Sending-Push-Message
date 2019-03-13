@@ -12,13 +12,6 @@ form.file.addEventListener('change', (e) => {
         const userIdArray = reader.result.split('\n');
         //ファイルの中身をtextarea内に表示する
         document.getElementById('output').textContent = reader.result;
-        /*if (userIdArray.length > 150) {
-            const obj = document.forms.form.file;
-            obj.value = "";
-            input.parent().parent().next(':text').val("");
-            alert("You can send messages to up to 150 users.\n一度にメッセージを送信できるのは150人までです。");
-            document.getElementById('output').textContent = "";
-        } else {*/
         //ファイル名表示
         const numFiles = input.get(0).files ? input.get(0).files.length : 1;
         const label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
@@ -30,7 +23,6 @@ form.file.addEventListener('change', (e) => {
 const submit = async () => {
     const token = document.getElementById('accessToken').value;
     const messages = (document.getElementById('Messages').value).replace(/\n? /g, '');
-    alert(messages);
     const result = document.getElementById('file').files[0];
     if (!isJSON(messages)) {
         alert("Invalid json.");
@@ -49,16 +41,20 @@ const submit = async () => {
     };
     let userIdArray = await getUserId();
     const userIdArrayDevided = [];
+    let sendUserId;
     if (userIdArray.length > 150) {
         const n = 150;
         for (let i = 0; i < userIdArray.length; i += n) {
             userIdArrayDevided.push(userIdArray.slice(i, i + n))
         }
-        //console.log(userIdArrayDevided);
+        sendUserId = userIdArrayDevided;
+    } else {
+        sendUserId = [userIdArray]
     }
+
     const body = {
         "token": token,
-        "to": userIdArrayDevided,
+        "to": sendUserId,
         "messages": messages
     };
     const url = location.href;

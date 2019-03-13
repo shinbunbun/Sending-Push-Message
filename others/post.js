@@ -1,20 +1,20 @@
 module.exports = async (req, res, next) => {
     const axios = require('axios');
-    //console.log(req.body);
     const body = req.body;
     const token = body.token;
-    let userId = body.to;
+    let userIdAssociativeArray = body.to;
     const messages = JSON.parse(body.messages);
     let url;
     let i = 0;
     const resJson = [];
-    await Promise.all(userId.map(async userId => {
-        userId = userId[i];
-        if (userId.length === 1) {
+    await Promise.all(userIdAssociativeArray.map(async userIdArray => {
+        let userId;
+        if (userIdArray.length === 1) {
             url = "https://api.line.me/v2/bot/message/push"
-            userId = userId[0];
+            userId = userIdArray[0];
         } else {
             url = "https://api.line.me/v2/bot/message/multicast "
+            userId = userIdArray;
         }
         const options = {
             method: 'post',
@@ -37,15 +37,10 @@ module.exports = async (req, res, next) => {
                 response = error.response.data;
             }
             resJson.push(JSON.stringify(response));
-            //console.log(response);
         };
         await main();
-        //console.log(resJson);
-    }))
-    //const dataPost = userId.forEach(async (userId) => {
-    //});
-    //await dataPost;
+        i++
+    }));
     res.json(resJson);
-    //console.log(resJson);
     next();
 };
