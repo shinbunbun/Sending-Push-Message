@@ -1,5 +1,5 @@
 # Sendind Push Message
-日本語の使い方は[こちら]()です。
+日本語の使い方は[こちら](https://qiita.com/shinbunbun_/items/62b824a1205d31d56427)です。
 
 1. Create a new folder and opening a terminal.
 
