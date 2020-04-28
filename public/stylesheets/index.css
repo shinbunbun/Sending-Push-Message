@@ -1,13 +1,17 @@
-body {
-    padding-top: 50px;
-}
-
-.sh{
+.sh {
   padding-left: 11px;
   font-weight: bold;
   border-left: 6px solid #ff9933;
 }
 
 p {
-  text-align:center;
+  text-align: center;
+}
+
+body {
+  padding-top: 70px;
+}
+
+#logo {
+  padding-right: 30px;
 }

@@ -10,10 +10,10 @@ module.exports = async (req, res, next) => {
     await Promise.all(userIdAssociativeArray.map(async userIdArray => {
         let userId;
         if (userIdArray.length === 1) {
-            url = "https://api.line.me/v2/bot/message/push"
+            url = 'https://api.line.me/v2/bot/message/push';
             userId = userIdArray[0];
         } else {
-            url = "https://api.line.me/v2/bot/message/multicast "
+            url = 'https://api.line.me/v2/bot/message/multicast';
             userId = userIdArray;
         }
         const options = {
@@ -37,9 +37,10 @@ module.exports = async (req, res, next) => {
                 response = error.response.data;
             }
             resJson.push(JSON.stringify(response));
+            console.log(response);
         };
         await main();
-        i++
+        i++;
     }));
     res.json(resJson);
     next();

@@ -1,3 +1,21 @@
+const app = new Vue({
+    el: '#app',
+    data: {
+        message: 'Hello Vue!',
+        isActiveHome: false,
+        isActivePush: false
+    },
+    created() {
+        const path = location.pathname;
+        if (path === '/') {
+            this.isActiveHome = true;
+        } else if (path === '/push.html') {
+            this.isActivePush = true;
+        }
+    },
+});
+
+
 const form = document.forms.form;
 form.file.addEventListener('change', (e) => {
     const input = $(this);
@@ -25,7 +43,7 @@ const submit = async () => {
     const messages = (document.getElementById('Messages').value).replace(/\n? /g, '');
     const result = document.getElementById('file').files[0];
     if (!isJSON(messages)) {
-        alert("Invalid json.");
+        alert('Invalid json.');
         return;
     }
     //FileReaderのインスタンスを作成する
@@ -40,41 +58,44 @@ const submit = async () => {
         });
     };
     let userIdArray = await getUserId();
+    console.log(userIdArray);
     const userIdArrayDevided = [];
     let sendUserId;
     if (userIdArray.length > 150) {
         const n = 150;
         for (let i = 0; i < userIdArray.length; i += n) {
-            userIdArrayDevided.push(userIdArray.slice(i, i + n))
+            userIdArrayDevided.push(userIdArray.slice(i, i + n));
         }
         sendUserId = userIdArrayDevided;
     } else {
-        sendUserId = [userIdArray]
+        sendUserId = [userIdArray];
     }
 
     const body = {
-        "token": token,
-        "to": sendUserId,
-        "messages": messages
+        'token': token,
+        'to': sendUserId,
+        'messages': messages
     };
     const url = location.href;
     const response = await fetch(`${url}post`, {
         method: 'post',
-        headers: { 'Content-type': 'application/json; charset=UTF-8' },
+        headers: {
+            'Content-type': 'application/json; charset=UTF-8'
+        },
         // credentials: 'include' /* cookie を含める場合 */
         body: JSON.stringify(body)
     });
     const postResult = await response.text();
-    document.getElementById('result').textContent = postResult;
+    document.getElementById('result').textContent = JSON.parse(postResult);
 };
 
 const isJSON = (arg) => {
-    arg = (typeof arg === "function") ? arg() : arg;
-    if (typeof arg !== "string") {
+    arg = (typeof arg === 'function') ? arg() : arg;
+    if (typeof arg !== 'string') {
         return false;
     }
     try {
-        arg = (!JSON) ? eval("(" + arg + ")") : JSON.parse(arg);
+        arg = (!JSON) ? eval('(' + arg + ')') : JSON.parse(arg);
         return true;
     } catch (e) {
         return false;
